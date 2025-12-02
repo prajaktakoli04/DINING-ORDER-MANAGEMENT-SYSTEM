@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swadisht Rasoi - Indian Food Ordering</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fff8e1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .menu-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .menu-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      background-color: #fff3cd;
+    }
+
+    .header {
+      background-color: #ff7043;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    .thank-you {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container my-4">
+    <div class="header">
+      <h1>Welcome to Swadisht Rasoi!</h1>
+      <p>Enjoy our handpicked traditional Indian snacks</p>
+    </div>
+
+    <div class="row mt-4" id="menu">
+      <!-- Menu Items -->
+    </div>
+
+    <div class="mt-4">
+      <h4>Total: ₹<span id="totalPrice">0</span></h4>
+      <button class="btn btn-success mt-2" onclick="finishOrder()">Finish Order</button>
+      <p id="thankYouMessage" class="thank-you"></p>
+    </div>
+  </div>
+
+  <script>
+    const menuItems = [
+      { name: 'Vadapav', price: 10 },
+      { name: 'Tea', price: 7 },
+      { name: 'Samosa', price: 12 },
+      { name: 'Pani Puri', price: 20 },
+      { name: 'Masala Dosa', price: 40 },
+      { name: 'Idli Sambhar', price: 30 }
+    ];
+
+    let total = 0;
+
+    const menuContainer = document.getElementById('menu');
+
+    menuItems.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = 'col-md-4 my-2';
+      card.innerHTML = `
+        <div class="card menu-card p-3">
+          <h5>${item.name}</h5>
+          <p>Price: ₹${item.price}</p>
+          <button class="btn btn-warning" onclick="addToOrder(${item.price})">Add to Order</button>
+        </div>`;
+      menuContainer.appendChild(card);
+    });
+
+    function addToOrder(price) {
+      total += price;
+      document.getElementById('totalPrice').textContent = total;
+    }
+
+    function finishOrder() {
+      if (total > 0) {
+        document.getElementById('thankYouMessage').textContent = "Thank you for your order! Please visit again.";
+      } else {
+        document.getElementById('thankYouMessage').textContent = "Please add items to your order before finishing.";
+      }
+    }
+  </script>
+</body>
+
+</html>
